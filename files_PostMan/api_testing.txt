@@ -85,14 +85,156 @@ key is always written in " " double quotes
 https://jsonpathfinder.com/
 https://jsonpath.com/
 ---
-Session 4 <-
 Response Validations:
 Status code
 Headers
 Cookies
 Response time
 Response body
+---
+We need to add assertions - validation
+pm - library
+functions - java script
 
+User defined functions
+Normal function
+Arrow function
+
+Chai assertion library
+
+pm.test("Test Name",function()
+	{	
+	//assertion;	
+	}
+);
+
+pm.test("Test Name", () =>
+	{
+	//assertion;
+	}
+);
+---
+Testing headers
+Check that a response header is present:
+pm.test("Content-type header is application/json", () =>
+	{
+	pm.response.to.have.header("Content-Type");
+	}
+);
+---
+Check that a response header exact value:
+pm.test("Content-type header is application/json", () =>
+	{
+	pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');
+	}
+);
+---
+Testing Cookies
+Test if a cookie is present in the response:
+pm.test("Cookie 'language' is present",()=> {
+	pm.expect(pm.cookies.has('language')).to.be.true;
+});
+---
+test for a perticular cookie value:
+pm.test("Cookie language has value 1", () => {
+	pm.expect(pm.cookies.get('language')).to.eql('gn-gb');
+});
+---
+Testing response times
+pm.test("Response time is less than 200ms", () => {
+	pm.expect(pm.response.responseTime).to.be.below(200);
+});
+---
+Test the type of any part of the response:
+const jsonData = pm.response.json();
+pm.test("Test data type of the response", () => {
+	pm.expect(jsonData).to.be.an("object");
+	pm.expect(jsonData.name).to.be.a("string");
+	pm.expect(jsonData.id).to.be.a("number");
+	pm.expect(jsonData.courses).to.be.an("array");
+});
+---
+Asserting array properties
+Check if an array is empty and if it contains particular items:
+pm.test("test array properties", () => {
+	//courses includes "java"
+	pm.expect(jsonData.Courses).to.be.include("Java");
+
+	//courses array must include all listed
+	pm.expect(jsonData.Courses).to.be.members(["Java","Selenium");
+
+});
+---
+//Validating json fileds in response:
+pm.test("Values of entire record with id 1", ()=> {
+    //var jsonData = pm.response.json();
+	pm.expect(jsonData.id).to.be.eql("1");
+	pm.expect(jsonData.Name).to.be.eql("Tanmay Bhosale");
+	pm.expect(jsonData.location).to.be.eql("India");
+	pm.expect(jsonData.Phone).to.be.eql("1234567899");
+	pm.expect(jsonData.Courses[0]).to.be.eql("Java");
+	pm.expect(jsonData.Courses[1]).to.be.eql("Selenium");
+});
+---
+json schema : {https://www.liquid-technologies.com/online-json-to-schema-converter}
+
+Response :
+{
+    "id": "1",
+    "Name": "Tanmay Bhosale",
+    "location": "India",
+    "Phone": "1234567899",
+    "Courses": [
+        "Java",
+        "Selenium"
+    ]
+}
+
+json schema :
+var schema=
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "Name": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "Phone": {
+      "type": "string"
+    },
+    "Courses": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "Name",
+    "location",
+    "Phone",
+    "Courses"
+  ]
+}
+---
+json schema valiation:
+pm.test("Schema is valid", function(){
+	pm.expect(tv4.validate(jsonData,schema)).to.be.true;
+});
+---
+Session 5 <-
 --------------------------------------------------------------------
 Database Testing :
 https://www.youtube.com/playlist?list=PLUDwpEzHYYLtmxThtmsBxocKuicJOddGj
