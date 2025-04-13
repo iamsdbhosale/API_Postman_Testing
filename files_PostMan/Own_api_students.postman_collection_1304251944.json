@@ -1,0 +1,351 @@
+/*
+Date : 13/04/2025 : 19:45
+*/
+{
+	"info": {
+		"_postman_id": "b871d13f-9e17-4cf3-b9d8-2a471814e93a",
+		"name": "Own_api_students",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44016497",
+		"_collection_link": "https://humanrobot-4551.postman.co/workspace/sdbhosale_API_Testing~454f1e41-71ad-49c9-990a-caeb144c8a19/collection/44016497-b871d13f-9e17-4cf3-b9d8-2a471814e93a?action=share&source=collection_link&creator=44016497"
+	},
+	"item": [
+		{
+			"name": "New Request_all",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Test data type of the response\", () => {\r",
+							"\tpm.expect(jsonData).to.be.an(\"object\");\r",
+							"\tpm.expect(jsonData.Name).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.id).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.location).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.Courses).to.be.an(\"array\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_single",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",()=>{\r",
+							"\tpm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-type header is application/json\", () =>\r",
+							"\t{\r",
+							"\tpm.response.to.have.header(\"Content-Type\");\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"pm.test(\"Content-type header is application/json\", () =>\r",
+							"\t{\r",
+							"\tpm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"//Test if a cookie is present in the response:\r",
+							"pm.test(\"Cookie 'language' is present\",()=> {\r",
+							"\tpm.expect(pm.cookies.has('language')).to.be.true;\r",
+							"});\r",
+							"//---\r",
+							"//test for a perticular cookie value:\r",
+							"pm.test(\"Cookie language has value 1\", () => {\r",
+							"\tpm.expect(pm.cookies.get('language')).to.eql('en-gb');\r",
+							"});\r",
+							"\r",
+							"//Testing response times\r",
+							"pm.test(\"Response time is less than 200ms\", () => {\r",
+							"\tpm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Test data type of the response\", () => {\r",
+							"\tpm.expect(jsonData).to.be.an(\"object\");\r",
+							"\tpm.expect(jsonData.Name).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.id).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.location).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.Courses).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"/*Asserting array properties\r",
+							"Check if an array is empty and if it contains particular items:*/\r",
+							"pm.test(\"Test array properties\", () => {\r",
+							"\t//courses includes \"Java\"\r",
+							"\tpm.expect(jsonData.Courses).to.be.include(\"Selenium\");\r",
+							"\r",
+							"\t//courses array must include all listed\r",
+							"\tpm.expect(jsonData.Courses).to.be.members([\"Java\",\"Selenium\"]);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"//Asserting array properties\r",
+							"//Check if an array is empty and if it contains particular items:\r",
+							"pm.test(\"test array properties\", () => {\r",
+							"\t//courses includes \"java\"\r",
+							"\tpm.expect(jsonData.Courses).to.be.include(\"Java\");\r",
+							"\r",
+							"\t//courses array must include all listed\r",
+							"\tpm.expect(jsonData.Courses).to.be.members([\"Java\",\"Selenium\"]);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"//Validating json fileds in response:\r",
+							"pm.test(\"Values of entire record with id 1\", ()=> {\r",
+							"    //var jsonData = pm.response.json();\r",
+							"\tpm.expect(jsonData.id).to.be.eql(\"1\");\r",
+							"\tpm.expect(jsonData.Name).to.be.eql(\"Tanmay Bhosale\");\r",
+							"\tpm.expect(jsonData.location).to.be.eql(\"India\");\r",
+							"\tpm.expect(jsonData.Phone).to.be.eql(\"1234567899\");\r",
+							"\tpm.expect(jsonData.Courses[0]).to.be.eql(\"Java\");\r",
+							"\tpm.expect(jsonData.Courses[1]).to.be.eql(\"Selenium\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"var schema=\r",
+							"{\r",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"id\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"Name\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"location\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"Phone\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"Courses\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": [\r",
+							"        {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      ]\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"id\",\r",
+							"    \"Name\",\r",
+							"    \"location\",\r",
+							"    \"Phone\",\r",
+							"    \"Courses\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"//json schema valiation:\r",
+							"pm.test(\"Schema is valid\", function(){\r",
+							"\tpm.expect(tv4.validate(jsonData,schema)).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/students/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_single_unknown",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404 | 404 Not Found\",()=>{\r",
+							"\tpm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students/1000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"1000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adding new record",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n    \"Name\": \"New Record\",\r\n      \"location\": \"India\",\r\n      \"Phone\": \"8552929008\",\r\n      \"Courses\": [\r\n        \"Java\",\r\n        \"C++\"\r\n      ]\r\n      }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update record",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n      \"Name\": \"new record 13:23\",\r\n      \"location\": \"India\",\r\n      \"Phone\": \"4444444444\",\r\n      \"Courses\": [\r\n        \"Java\",\r\n        \"C++\"\r\n      ]\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/students/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "specific_update",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n      \r\n      \"Phone\": \"9921502034\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/students/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -50,6 +50,16 @@
         "Java",
         "C++"
       ]
+    },
+    {
+      "id": "be56",
+      "Name": "New Record",
+      "location": "India",
+      "Phone": "8552929008",
+      "Courses": [
+        "Java",
+        "C++"
+      ]
     }
   ]
 }
