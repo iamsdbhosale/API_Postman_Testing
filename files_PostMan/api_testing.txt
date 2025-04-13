@@ -1,0 +1,91 @@
+Date : 13/04/2025
+--------------------------------------------------------------------
+API Testing :
+Video : https://www.youtube.com/playlist?list=PLUDwpEzHYYLs3DYFqm79fIj2QOzPke_fW
+Link : https://reqres.in/
+---
+Postman
+Create Workspace
+Create Collection
+
+http requests:
+1. get : retrieve the record/s
+2. post : Create the record/s
+3. put/patch : complete record is updated/partial record is updated
+4. delete : delete the record/s
+---
+Put
+https://reqres.in/api/users/23
+
+body
+raw
+json
+{
+    "name": "sdbuser",
+    "job": "API Tester"
+}
+---
+Creating own API requires
+1. nodejs/npm
+node --version
+npm --version
+2. json-server
+run the cmd :
+npm install -g json-server
+---
+students.json : 
+{
+"students":[
+  {
+    "id": "1",
+    "Name": "Senpai",
+    "location" : "India",
+    "Phone" : "1234567899",
+    "Courses" : [
+      "Java",
+      "Selenium"
+    ]
+  },
+  {
+    "id": "2",
+    "Name": "Sachin Bhosale",
+    "location" : "India",
+    "Phone" : "9503103805",
+    "Courses" : [
+      "Java",
+      "Selenium"
+    ]
+  }
+]
+}
+---
+json-server students.json
+
+---
+pm.test("Status code is 200",()=>{
+	pm.response.to.have.status(200);
+});
+---
+pm.test("Status code is 404 | 404 Not Found",()=>{
+	pm.response.to.have.status(404);
+});
+---
+pm.test("Successful GET request",()=>{
+	pm.expect(pm.response.code).to.be.oneOf([200,201]);
+});
+---
+pm.test("Status Code name has string",()=>{
+	pm.response.to.have.status("Created");
+});
+---
+json - java script object notation
+data is stored in key:value pair
+key is always written in " " double quotes
+---
+https://jsonpathfinder.com/
+https://jsonpath.com/
+---
+Session 4 <-
+--------------------------------------------------------------------
+Database Testing :
+https://www.youtube.com/playlist?list=PLUDwpEzHYYLtmxThtmsBxocKuicJOddGj

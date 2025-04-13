@@ -1,0 +1,55 @@
+{
+  "students": [
+    {
+      "id": "1",
+      "Name": "Tanmay Bhosale",
+      "location": "India",
+      "Phone": "1234567899",
+      "Courses": [
+        "Java",
+        "Selenium"
+      ]
+    },
+    {
+      "id": "2",
+      "Name": "Sachin Bhosale",
+      "location": "India",
+      "Phone": "9921502034",
+      "Courses": [
+        "Java",
+        "Selenium"
+      ]
+    },
+    {
+      "id": "3",
+      "Name": "Pooja",
+      "location": "India",
+      "Phone": "3333333333",
+      "Courses": [
+        "Java",
+        "C++",
+        "Postman"
+      ]
+    },
+    {
+      "Name": "new record 13:23",
+      "location": "India",
+      "Phone": "4444444444",
+      "Courses": [
+        "Java",
+        "C++"
+      ],
+      "id": "4"
+    },
+    {
+      "id": "e198",
+      "Name": "New Record",
+      "location": "India",
+      "Phone": "8552929008",
+      "Courses": [
+        "Java",
+        "C++"
+      ]
+    }
+  ]
+}
